@@ -1,792 +1,623 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSN Cards | Loja Virtual de Gift Cards - PIX Checkout</title>
-    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Investidor ao Contrário | Domine o YouTube</title>
+    <meta name="description" content="Aprenda a ganhar dinheiro no YouTube, viralizar vídeos e monetizar seu canal com o método Investidor ao Contrário.">
     
+    <!-- Fonte Google (Inter e Oswald) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração de Cores Personalizadas -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-green': '#00FF41',
+                        'dark-green': '#008F11',
+                        'black-bg': '#050505',
+                        'card-bg': '#111111',
+                        'gray-text': '#A1A1A1',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon': '0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 65, 0.3)',
+                        'neon-hover': '0 0 20px rgba(0, 255, 65, 0.8), 0 0 40px rgba(0, 255, 65, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* Variáveis de Cores (Ajustadas para o tema PSN) */
-        :root {
-            --primary-color: #0070D1; /* Azul PlayStation */
-            --secondary-color: #FF3300; /* Laranja/Vermelho Destacado */
-            --accent-color: #27ae60; /* Verde para PIX/Sucesso */
-            --warning-color: #f39c12; /* Amarelo para Pendente */
-            --background-color: #121212; /* Fundo Escuro */
-            --card-bg: #1c1c1c; /* Fundo dos Cards */
-            --header-bg: #1a1a2e; /* NOVO: Azul Escuro para o cabeçalho */
-            --text-color: #f8f8f8; /* Texto Claro */
-            --shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Estilos Gerais */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--background-color);
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Efeito de Fundo Matrix Sutil */
+        .matrix-bg {
+            background-image: radial-gradient(#003300 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.3;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #00FF41);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        h1, h2, h3 {
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-
-        /* Animação Pulse */
+        /* Animação do botão pulsante */
         @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(39, 174, 96, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); }
-        }
-
-        /* Botões */
-        .btn {
-            display: inline-block;
-            padding: 18px 35px; 
-            border: none;
-            border-radius: 50px; 
-            font-weight: 900; 
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            font-size: 1.1em;
-        }
-
-        /* Botão COMPRAR AGORA (Para os cards) */
-        .btn-buy {
-            background-color: var(--secondary-color);
-            color: var(--light-text);
-            padding: 12px 20px;
-            font-size: 0.9em;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            margin-top: 15px;
-        }
-        .btn-buy:hover {
-            background-color: #cc2a00;
-            transform: translateY(-1px);
-        }
-
-        /* Botão PAGAR AGORA (Verde Pulsante) */
-        .btn-pay-now {
-            background-color: var(--accent-color);
-            color: var(--light-text);
-            animation: pulse-green 2s infinite; 
-            width: 100%;
-            margin-top: 30px;
-        }
-
-        .btn-pay-now:hover {
-            background-color: #219d54; 
-            transform: translateY(-2px);
-            animation: none;
-        }
-
-        /* Header */
-        .header {
-            background-color: var(--header-bg); /* NOVO: Azul Escuro */
-            box-shadow: var(--shadow);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            border-bottom: 2px solid var(--primary-color);
-        }
-
-        .header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* NOVO ESTILO PARA LOGO MAIOR */
-        .logo img {
-            height: 60px; /* Aumentado o tamanho da logo */
-            width: auto;
-            vertical-align: middle;
-        }
-
-        .nav a {
-            text-decoration: none;
-            color: var(--text-color);
-            margin-left: 30px;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .nav a:hover {
-            color: var(--primary-color);
-        }
-
-        /* Seção de Produtos (Shop) */
-        .shop-section {
-            padding: 60px 0;
-            text-align: center;
-        }
-
-        .shop-section h2 {
-            color: var(--primary-color);
-            font-size: 3em;
-            margin-bottom: 20px;
-            font-weight: 900;
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 65, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0); }
         }
         
-        .shop-section p {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-            color: #ccc;
+        .btn-pulse {
+            animation: pulse-green 2s infinite;
         }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
+        /* Glitch Effect simples no hover */
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: #00FF41;
         }
 
-        .product-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s;
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
         }
 
-        .product-card:hover {
-            transform: translateY(-8px);
-            border: 1px solid var(--primary-color);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: auto;
-            max-height: 180px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-        }
-
-        .product-card h3 {
-            color: var(--text-color);
-            font-size: 1.3em;
-            margin-bottom: 5px;
-        }
-
-        .product-card .price {
-            font-size: 1.8em;
-            font-weight: 900;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: var(--card-bg);
-            color: #aaa;
-            padding: 30px 0;
-            font-size: 0.9em;
-            border-top: 1px solid #333;
+        /* Estilos do Modal */
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
         }
         
-        .footer .container {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            text-align: left;
-        }
-        
-        .footer-col {
-            width: 30%;
-            min-width: 200px;
-            margin-bottom: 15px;
-        }
-        
-        .footer h4 {
-            color: var(--primary-color);
-            font-weight: 700;
-            margin-bottom: 10px;
-            font-size: 1em;
-        }
-        
-        .footer p, .footer a {
-            color: #777;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 5px;
-        }
-        
-        .footer a:hover {
-            color: var(--primary-color);
-        }
-
-        .footer-bottom {
-            width: 100%;
-            border-top: 1px solid #333;
-            padding-top: 15px;
-            margin-top: 15px;
-            text-align: center;
-            color: #555;
-        }
-
-        /* ======================================
-        MODAIS (POP-UPS) - REUTILIZADO
-        ======================================
-        */
-        .modal {
-            display: none; 
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.85);
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         .modal-content {
-            background-color: #2a2a2a; /* Fundo Escuro do Modal */
-            margin: 5% auto; 
-            padding: 30px 40px;
-            border-radius: 15px;
-            width: 95%; 
-            max-width: 550px; 
-            position: relative;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-            color: var(--text-color);
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
         }
 
-        .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 32px;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        .close-btn:hover,
-        .close-btn:focus {
-            color: var(--primary-color);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Checkout (Endereço) */
-        .checkout-header {
-            border-bottom: 3px solid var(--secondary-color);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .checkout-header h3 {
-            color: var(--text-color);
-            font-weight: 900;
-        }
-
-        .checkout-summary {
-            background-color: #333; 
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 5px solid var(--primary-color);
-        }
-
-        .checkout-summary strong {
-            font-size: 1.1em;
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-        .checkout-summary .price {
-            font-size: 2.2em;
-            font-weight: 900;
-            color: var(--secondary-color);
-        }
-        
-        #address-form label {
-            display: block;
-            margin-top: 10px;
-            font-weight: 700;
-            font-size: 0.9em;
-            color: #ccc;
-        }
-
-        #address-form input, #address-form select {
-            width: 100%;
-            padding: 12px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #444;
-            border-radius: 8px;
-            background-color: #1c1c1c;
-            color: var(--text-color);
-            transition: border-color 0.3s;
-        }
-        #address-form input:focus, #address-form select:focus {
-            border-color: var(--primary-color);
-            outline: none;
-        }
-        
-        /* Ocultar o select de produto no checkout, pois é fixo por produto */
-        #product-select-group {
-            display: none;
-        }
-
-        /* Estilo elegante para a opção de pagamento PIX */
-        .payment-option-pix {
-            background-color: #3c3c3c; 
-            border: 1px solid #555;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            text-align: center;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            color: var(--accent-color);
-        }
-        .payment-option-pix img {
-            height: 25px;
-            width: auto;
-        }
-
-
-        /* Info PIX Modal (Pagamento) */
-        .pix-modal-content {
-            text-align: center;
-        }
-
-        .pix-modal-content h3 {
-            color: var(--accent-color);
-            font-size: 2em;
-        }
-
-        .countdown-timer {
-            background-color: #333;
-            color: var(--text-color);
-            padding: 10px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 1.6em;
-            font-weight: 700;
-        }
-        .countdown-timer i {
-            margin-right: 10px;
-            color: var(--secondary-color);
-        }
-
-        .pix-details {
-            border: 2px solid var(--accent-color);
-            padding: 25px;
-            border-radius: 12px;
-            background-color: #1c1c1c;
-            margin-bottom: 20px;
-        }
-
-        .pix-details .pix-icon {
-            width: 100px;
-            margin-bottom: 20px;
-        }
-
-        .pix-key-group {
-            background-color: #2c2c2c;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 15px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .pix-key-group span {
-            font-weight: 700;
-            color: var(--accent-color);
-            font-size: 1.1em;
-        }
-        .copy-btn {
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            font-weight: 600;
-            transition: background-color 0.3s;
-        }
-        
-        .copy-btn:hover {
-            background-color: #005bb5;
-        }
-
-        .titular-info {
-            font-size: 0.9em;
-            color: #aaa;
-            margin-top: 10px;
-        }
-
-        .strong-name {
-            font-weight: 900 !important; 
-            color: var(--secondary-color); 
-        }
-        
-        .pending-message {
-            text-align: center;
-            padding: 15px;
-            background-color: #333; 
-            color: var(--warning-color);
-            border: 1px solid var(--warning-color);
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            display: none; 
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-             .footer-col {
-                width: 100%;
-                min-width: 100%;
-                text-align: center;
-            }
-            .footer .container {
-                justify-content: center;
-            }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
         }
     </style>
 </head>
-<body>
+<body class="antialiased font-sans">
 
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <img src="https://i.ibb.co/39SP0b4M/ggf.png" alt="PSN Gift Cards Logo">
+    <!-- Navbar -->
+    <nav class="fixed w-full z-40 bg-black-bg/95 backdrop-blur border-b border-green-900/30">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-2">
+                    <!-- Icone Gráfico Simples -->
+                    <svg class="w-8 h-8 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    <span class="font-display text-2xl tracking-wider text-white font-bold italic">INVESTIDOR <span class="text-neon-green">AO CONTRÁRIO</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <button onclick="openCheckout()" class="cursor-pointer bg-transparent border border-neon-green text-neon-green px-6 py-2 rounded hover:bg-neon-green hover:text-black transition duration-300 font-bold uppercase text-sm tracking-wider shadow-neon">
+                        ACESSAR AGORA
+                    </button>
+                </div>
             </div>
-            <nav class="nav">
-                <a href="#shop" class="nav-item">Loja</a>
-                <a href="#" class="nav-item">Ajuda</a>
-            </nav>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 matrix-bg z-0 pointer-events-none"></div>
+        <!-- Luz de fundo -->
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-neon-green blur-[150px] opacity-20 rounded-full pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-neon-green blur-[150px] opacity-10 rounded-full pointer-events-none"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <!-- Copy de Vendas -->
+                <div class="lg:w-1/2 text-center lg:text-left order-2 lg:order-1">
+                    <div class="inline-block bg-green-900/20 border border-neon-green/30 rounded-full px-4 py-1 mb-6 backdrop-blur-sm">
+                        <span class="text-neon-green text-xs font-bold tracking-[0.2em] uppercase">Método Validado 2024/2025</span>
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-display font-bold leading-none mb-6 uppercase">
+                        Pare de gastar.<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-green to-dark-green">Invista em Views.</span>
+                    </h1>
+                    <p class="text-gray-400 text-lg lg:text-xl mb-8 leading-relaxed font-light">
+                        Descubra o protocolo exato de 30 aulas para transformar o YouTube em uma máquina de imprimir dinheiro, mesmo começando do zero e sem precisar aparecer.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+                        <button onclick="openCheckout()" class="btn-pulse bg-neon-green text-black font-bold py-4 px-10 rounded text-lg uppercase tracking-wide hover:bg-white transition duration-300 text-center shadow-neon w-full sm:w-auto">
+                            Quero Viralizar Agora
+                        </button>
+                        <div class="flex items-center gap-2 text-gray-400 text-sm">
+                            <svg class="w-5 h-5 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Compra 100% Segura</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Imagem do Produtor / Hero Image -->
+                <div class="lg:w-1/2 relative group order-1 lg:order-2 w-full max-w-md">
+                    <div class="absolute inset-0 bg-neon-green rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    <div class="relative bg-card-bg border border-gray-800 p-2 rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative overflow-hidden rounded-xl">
+                            <img src="https://yt3.googleusercontent.com/6wHmUg2X83g5Ebt3DgemX6G7bsEW9C3mjG_Be27fG00WPJcVdKs6rsW1bcJcu-52BHHPM1VKMw=s900-c-k-c0x00ffffff-no-rj" 
+                                 alt="Produtor Investidor ao Contrário" 
+                                 class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-700">
+                             <!-- Overlay gradiente na imagem -->
+                             <div class="absolute inset-0 bg-gradient-to-t from-card-bg via-transparent to-transparent opacity-80"></div>
+                        </div>
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute bottom-6 left-6 right-6 bg-black/90 backdrop-blur border border-neon-green/50 p-4 rounded-xl shadow-neon flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-neon-green/20 p-2 rounded-full">
+                                    <svg class="w-6 h-6 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-400 uppercase tracking-wider">Potencial Mensal</p>
+                                    <p class="text-white font-bold text-lg">Ilimitado</p>
+                                </div>
+                            </div>
+                            <div class="text-neon-green font-bold text-xl">↗</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
-    <section class="shop-section" style="padding-top: 100px;">
-        <div class="container">
-            <h2>RECARREGUE SUA PSN!</h2>
-            <p>Os melhores preços em Gift Cards para comprar jogos, DLCs e assinaturas na PlayStation Store.</p>
+    <!-- Marquee / Faixa de Logos -->
+    <div class="bg-neon-green py-3 overflow-hidden whitespace-nowrap border-y border-white/20">
+        <div class="inline-block animate-marquee">
+            <span class="text-black font-display font-bold text-xl mx-8 uppercase">MONETIZAÇÃO EM DÓLAR</span> • 
+            <span class="text-black font-display font-bold text-xl mx-8 uppercase">LIBERDADE GEOGRÁFICA</span> • 
+            <span class="text-black font-display font-bold text-xl mx-8 uppercase">SEM APARECER</span> • 
+            <span class="text-black font-display font-bold text-xl mx-8 uppercase">30 AULAS PRÁTICAS</span> • 
+            <span class="text-black font-display font-bold text-xl mx-8 uppercase">MONETIZAÇÃO EM DÓLAR</span> • 
+            <span class="text-black font-display font-bold text-xl mx-8 uppercase">LIBERDADE GEOGRÁFICA</span> • 
+            <span class="text-black font-display font-bold text-xl mx-8 uppercase">SEM APARECER</span> • 
         </div>
-    </section>
+    </div>
 
-    <section id="shop" class="shop-section" style="padding-top: 0;">
-        <div class="container">
-            <div class="products-grid" id="products-container">
+    <!-- Problema vs Solução -->
+    <section class="py-24 bg-black-bg border-b border-gray-900">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-5xl font-display font-bold mb-4 uppercase">Você está no <span class="text-neon-green">jogo errado</span></h2>
+            <p class="text-gray-400 mb-16 max-w-2xl mx-auto">A maioria das pessoas tenta enriquecer guardando dinheiro. O segredo não é guardar, é multiplicar a atenção das pessoas.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <!-- Lado Ruim -->
+                <div class="p-8 rounded-2xl bg-[#0a0a0a] border border-red-900/20 hover:border-red-600/50 transition duration-300 group">
+                    <h3 class="text-red-500 font-display font-bold text-2xl mb-6 uppercase tracking-wider group-hover:text-red-400">Investidor Tradicional</h3>
+                    <ul class="space-y-4 text-left text-gray-400">
+                        <li class="flex items-start gap-3 bg-red-900/10 p-3 rounded-lg">
+                            <span class="text-red-500 font-bold mt-1">✕</span> 
+                            <span>Precisa de capital inicial alto para começar</span>
+                        </li>
+                        <li class="flex items-start gap-3 bg-red-900/10 p-3 rounded-lg">
+                            <span class="text-red-500 font-bold mt-1">✕</span> 
+                            <span>Retorno de 1% ao mês (se tiver sorte)</span>
+                        </li>
+                        <li class="flex items-start gap-3 bg-red-900/10 p-3 rounded-lg">
+                            <span class="text-red-500 font-bold mt-1">✕</span> 
+                            <span>Demora 30 anos para ver resultado</span>
+                        </li>
+                    </ul>
                 </div>
+
+                <!-- Lado Bom -->
+                <div class="p-8 rounded-2xl bg-[#0F0F0F] border border-neon-green shadow-neon transform md:scale-105 relative z-10">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-neon-green text-black text-xs font-bold px-4 py-1 rounded-full uppercase tracking-widest shadow-lg">O Novo Jogo</div>
+                    <h3 class="text-neon-green font-display font-bold text-2xl mb-6 uppercase tracking-wider">Investidor ao Contrário</h3>
+                    <ul class="space-y-4 text-left text-white">
+                        <li class="flex items-start gap-3 bg-green-900/20 p-3 rounded-lg border border-green-900/30">
+                            <span class="text-neon-green font-bold mt-1">✓</span> 
+                            <span>Investimento financeiro ZERO</span>
+                        </li>
+                        <li class="flex items-start gap-3 bg-green-900/20 p-3 rounded-lg border border-green-900/30">
+                            <span class="text-neon-green font-bold mt-1">✓</span> 
+                            <span>Escala infinita: um vídeo pode render R$10k+</span>
+                        </li>
+                        <li class="flex items-start gap-3 bg-green-900/20 p-3 rounded-lg border border-green-900/30">
+                            <span class="text-neon-green font-bold mt-1">✓</span> 
+                            <span>Receba em Dólar (Moeda forte 5x1)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-col">
-                <h4>Atendimento</h4>
-                <p>24/7 - Entrega Imediata (Código Digital)</p>
-                <p>Rua Fritz Muller, 50 SL 503 - Coqueiros Florianópolis/SC</p>
+    <!-- O Que Você Vai Aprender (30 Aulas) -->
+    <section class="py-24 relative bg-card-bg">
+        <div class="absolute top-0 left-0 w-full h-full matrix-bg opacity-10 pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-neon-green font-bold tracking-widest uppercase text-sm mb-2 block">Conteúdo Programático</span>
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">
+                    30 AULAS DE <span class="text-neon-green">PURO CONTEÚDO</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Não é teoria barata. É o campo de batalha. Aprenda o que realmente funciona no algoritmo atual do YouTube.</p>
             </div>
-            <div class="footer-col">
-                <h4>Fale Conosco</h4>
-                <p><i class="fas fa-phone-alt"></i> (85) 99212-9136</p>
-                <p><i class="fas fa-envelope"></i> contato@investidoraocontrario.com</p>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Módulo 1 -->
+                <div class="bg-black/50 p-8 rounded-xl border border-gray-800 hover:border-neon-green transition duration-300 group hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-gray-900 rounded-lg flex items-center justify-center mb-6 group-hover:bg-neon-green transition shadow-lg">
+                        <svg class="w-7 h-7 text-neon-green group-hover:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">A Mente do Algoritmo</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Entenda como o YouTube pensa. Aprenda a manipular o CTR e a Retenção para obrigar a plataforma a recomendar seus vídeos.</p>
+                </div>
+
+                <!-- Módulo 2 -->
+                <div class="bg-black/50 p-8 rounded-xl border border-gray-800 hover:border-neon-green transition duration-300 group hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-gray-900 rounded-lg flex items-center justify-center mb-6 group-hover:bg-neon-green transition shadow-lg">
+                        <svg class="w-7 h-7 text-neon-green group-hover:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Produção Viral</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Criação de roteiros magnéticos, edição dinâmica e thumbnails que recebem cliques. Tudo passo a passo.</p>
+                </div>
+
+                <!-- Módulo 3 -->
+                <div class="bg-black/50 p-8 rounded-xl border border-gray-800 hover:border-neon-green transition duration-300 group hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-gray-900 rounded-lg flex items-center justify-center mb-6 group-hover:bg-neon-green transition shadow-lg">
+                        <svg class="w-7 h-7 text-neon-green group-hover:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Monetização Extrema</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">AdSense é só o começo. Aprenda a vender infoprodutos, fazer parcerias e criar múltiplas fontes de renda com um canal.</p>
+                </div>
             </div>
-            <div class="footer-col">
-                <h4>Informações</h4>
-                <p> </p>
-                <a href="#">Termos de Compra</a>
+            
+            <div class="mt-12 text-center">
+                <p class="text-white font-medium">+ 27 Aulas detalhadas sobre edição, SEO, nichos lucrativos e Dark Channels.</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 PSN Gift Cards. Todos os direitos reservados. Não afiliado à Sony Interactive Entertainment.</p>
+        </div>
+    </section>
+
+    <!-- Oferta Principal -->
+    <section id="oferta" class="py-24 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-green/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <div class="bg-black border border-neon-green rounded-3xl p-8 md:p-12 text-center shadow-neon">
+                <span class="bg-neon-green text-black px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6 inline-block">Oferta por Tempo Limitado</span>
+                
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-4">ACESSO VITALÍCIO</h2>
+                <p class="text-gray-400 mb-8">Tudo o que você precisa para começar a faturar no YouTube ainda hoje.</p>
+
+                <!-- Preço -->
+                <div class="flex flex-col items-center justify-center mb-8">
+                    <span class="text-gray-500 line-through text-xl">De R$ 997,00</span>
+                    <div class="flex items-start text-neon-green font-bold">
+                        <span class="text-2xl mt-2">R$</span>
+                        <span class="text-7xl md:text-8xl">197</span>
+                        <div class="flex flex-col text-left mt-2">
+                            <span class="text-2xl">,00</span>
+                            <span class="text-sm text-gray-400 font-normal">À vista</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botão CTA -->
+                <button onclick="openCheckout()" class="btn-pulse w-full bg-neon-green text-black font-extrabold text-xl py-5 rounded-xl uppercase tracking-wider hover:bg-white hover:scale-[1.02] transition duration-300 mb-6 cursor-pointer">
+                    Quero Garantir Minha Vaga
+                </button>
+
+                <!-- Garantia -->
+                <div class="flex items-center justify-center gap-2 mb-8">
+                    <svg class="w-5 h-5 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <span class="text-white font-medium">Garantia Incondicional de 7 Dias</span>
+                </div>
+
+                <!-- Cartões Aceitos -->
+                <div class="flex justify-center gap-4 opacity-50 grayscale">
+                    <div class="h-8 w-12 bg-white/20 rounded"></div>
+                    <div class="h-8 w-12 bg-white/20 rounded"></div>
+                    <div class="h-8 w-12 bg-white/20 rounded"></div>
+                    <div class="h-8 w-12 bg-white/20 rounded"></div>
+                </div>
             </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-card-bg">
+        <div class="max-w-3xl mx-auto px-4">
+            <h2 class="text-3xl font-display font-bold text-center mb-12 text-white">PERGUNTAS FREQUENTES</h2>
+            
+            <div class="space-y-4">
+                <details class="group bg-black border border-gray-800 rounded-lg p-4 open:border-neon-green transition-all duration-300">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-white">
+                        <span>Preciso aparecer nos vídeos?</span>
+                        <span class="transition group-open:rotate-180 text-neon-green">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-400 mt-3 group-open:animate-fadeIn">Não. O módulo de "Dark Channels" ensina exatamente como criar canais gigantescos usando imagens de banco, animações e narrações, sem nunca mostrar o rosto.</p>
+                </details>
+
+                <details class="group bg-black border border-gray-800 rounded-lg p-4 open:border-neon-green transition-all duration-300">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-white">
+                        <span>Serve para quem está começando do zero?</span>
+                        <span class="transition group-open:rotate-180 text-neon-green">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-400 mt-3 group-open:animate-fadeIn">Sim. O curso foi desenhado para te levar do zero absoluto até a monetização. Você não precisa ter experiência prévia.</p>
+                </details>
+
+                <details class="group bg-black border border-gray-800 rounded-lg p-4 open:border-neon-green transition-all duration-300">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-white">
+                        <span>Por quanto tempo terei acesso?</span>
+                        <span class="transition group-open:rotate-180 text-neon-green">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-400 mt-3 group-open:animate-fadeIn">O acesso é vitalício. Você pode assistir quando e onde quiser, quantas vezes precisar.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-900">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="mb-6 flex justify-center items-center gap-2">
+                <svg class="w-6 h-6 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                <span class="font-display font-bold text-white text-xl">INVESTIDOR AO CONTRÁRIO</span>
+            </div>
+
+            <!-- Email Adicionado -->
+            <div class="mb-6">
+                <a href="mailto:contato@investidoraocontrario.com" class="text-gray-400 hover:text-neon-green transition flex justify-center items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    contato@investidoraocontrario.com
+                </a>
+            </div>
+
+            <p class="text-gray-600 text-sm mb-4">© 2024 Investidor ao Contrário. Todos os direitos reservados.</p>
+            <div class="flex justify-center gap-6 text-sm text-gray-500 mb-4">
+                <a href="#" class="hover:text-neon-green transition">Termos de Uso</a>
+                <a href="#" class="hover:text-neon-green transition">Políticas de Privacidade</a>
+                <a href="#" class="hover:text-neon-green transition">Contato</a>
+            </div>
+            <p class="text-[10px] text-gray-800 uppercase font-bold tracking-widest">Desenvolvido por Brenda do Nascimento Silveira, 081.904.013-43</p>
         </div>
     </footer>
 
-
-    <div id="address-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <div class="checkout-header">
-                <h3><i class="fas fa-credit-card"></i> Finalize Sua Compra Digital</h3>
-            </div>
-            
-            <div class="checkout-summary">
-                <div>
-                    <strong>Produto:</strong> <span id="product-name-display">PSN Card R$ 50</span><br>
-                    <span>Código Enviado por E-mail</span>
-                </div>
-                <div class="price" id="display-price">R$ 50,00</div>
-            </div>
-
-            <form id="address-form">
-                
-                <div id="product-select-group">
-                    <label for="product-select">Produto Selecionado</label>
-                    <select id="product-select" required>
-                        <option value="50.00">PSN Card R$ 50</option>
-                    </select>
-                </div>
-                
-                <label for="nome">Nome Completo</label>
-                <input type="text" id="nome" required>
-
-                <label for="telefone">Telefone (Para Contato)</label>
-                <input type="tel" id="telefone" placeholder="(95) 99999-9999" required>
-
-                <label for="email">Email para Envio do Código</label>
-                <input type="email" id="email" placeholder="seuemail@exemplo.com" required>
-
-                <label for="cep">CEP <span style="font-size: 0.8em; color: var(--primary-color);">(Apenas para registro/segurança)</span></label>
-                <input type="text" id="cep" pattern="\d{8}" placeholder="Ex: 69301000 (apenas números)" required maxlength="8">
-
-                <div class="payment-option-pix">
-                    <img src="https://www.advocacianunes.com.br/wp-content/uploads/2022/04/logo-pix-icone-1024.png" alt="Ícone PIX"> PIX
-                </div>
-
-                <button type="submit" class="btn btn-pay-now">
-                    PAGAR AGORA <i class="fas fa-arrow-right"></i>
+    <!-- MODAL 1: CHECKOUT -->
+    <div id="modal-checkout" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="modal-content bg-[#111] border border-neon-green w-full max-w-md rounded-2xl relative shadow-neon overflow-hidden">
+            <!-- Header Modal -->
+            <div class="bg-black/50 p-4 border-b border-gray-800 flex justify-between items-center">
+                <h3 class="text-white font-bold font-display tracking-wide uppercase">Finalizar Inscrição</h3>
+                <button onclick="closeModals()" class="text-gray-400 hover:text-white transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
-            </form>
-        </div>
-    </div>
-
-    <div id="pix-modal" class="modal">
-        <div class="modal-content pix-modal-content">
-            <span class="close-btn">&times;</span>
-            <h3><i class="fas fa-check-circle"></i> Pagamento PIX Gerado!</h3>
-            <p>Seu código será enviado assim que o pagamento for confirmado.</p>
-            
-            <div class="countdown-timer">
-                <i class="fas fa-hourglass-half"></i> Tempo restante: <span id="countdown">10:00</span>
             </div>
-
-            <div class="pix-details">
-                <img src="https://www.advocacianunes.com.br/wp-content/uploads/2022/04/logo-pix-icone-1024.png" alt="Ícone PIX" class="pix-icon">
-                
-                <p><strong>VALOR A PAGAR:</strong> <span style="font-size: 1.8em; color: var(--secondary-color);" id="pix-value-display">R$ 50,00</span></p>
-                <p><strong>Tipo de Chave:</strong> CPF</p>
-                
-                <div class="pix-key-group">
-                    <span id="pix-key-display">081.904.013-43</span> 
-                    <button class="copy-btn" data-copy="08190401343"><i class="fas fa-copy"></i> Copiar Chave</button>
+            
+            <!-- Body Modal -->
+            <div class="p-6">
+                <div class="mb-6 flex items-center gap-4 bg-green-900/10 p-3 rounded-lg border border-green-900/30">
+                    <div class="bg-neon-green/10 p-2 rounded">
+                        <svg class="w-8 h-8 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-white font-bold text-sm">Investidor ao Contrário</p>
+                        <p class="text-neon-green font-bold text-lg">R$ 197,00</p>
+                    </div>
                 </div>
 
-                <p class="titular-info">
-                    **Titular para Confirmação:** <strong class="strong-name">Brenda do Nascimento Silveira</strong>
-                </p>
-            </div>
+                <form onsubmit="handleCheckout(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-400 text-xs uppercase font-bold mb-2">Nome Completo</label>
+                        <input type="text" required placeholder="Digite seu nome" class="w-full bg-black border border-gray-700 text-white rounded-lg px-4 py-3 focus:border-neon-green focus:ring-1 focus:ring-neon-green outline-none transition placeholder-gray-600">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-xs uppercase font-bold mb-2">E-mail</label>
+                        <input type="email" required placeholder="seu@email.com" class="w-full bg-black border border-gray-700 text-white rounded-lg px-4 py-3 focus:border-neon-green focus:ring-1 focus:ring-neon-green outline-none transition placeholder-gray-600">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-xs uppercase font-bold mb-2">WhatsApp / Telefone</label>
+                        <input type="tel" id="phone" maxlength="15" required placeholder="(XX) 9XXXX-XXXX" class="w-full bg-black border border-gray-700 text-white rounded-lg px-4 py-3 focus:border-neon-green focus:ring-1 focus:ring-neon-green outline-none transition placeholder-gray-600">
+                    </div>
 
-            <div class="pending-message">
-                ⚠️ **Pedido Registrado!** O pagamento está **PENDENTE**. Seu código será enviado por email **SOMENTE APÓS** a confirmação do PIX.
+                    <button type="submit" class="w-full bg-neon-green hover:bg-white text-black font-bold py-4 rounded-lg uppercase tracking-wide transition duration-300 shadow-[0_0_15px_rgba(0,255,65,0.4)] mt-4">
+                        Pagar Agora
+                    </button>
+                    
+                    <div class="flex justify-center items-center gap-2 mt-4 text-xs text-gray-500">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        Ambiente Criptografado e Seguro
+                    </div>
+                </form>
             </div>
-
-            <button id="close-pix-btn" class="btn" style="background-color: var(--primary-color);">
-                <i class="fas fa-times"></i> Fechar
-            </button>
         </div>
     </div>
 
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const productData = [
-                { value: 15.00, price: 15.00, name: "PSN Card R$ 15" },
-                { value: 30.00, price: 30.00, name: "PSN Card R$ 30" },
-                { value: 50.00, price: 50.00, name: "PSN Card R$ 50" },
-                { value: 60.00, price: 60.00, name: "PSN Card R$ 60" },
-                { value: 100.00, price: 98.00, name: "PSN Card R$ 100" }, // Desconto
-                { value: 120.00, price: 118.00, name: "PSN Card R$ 120" }, // Desconto
-                { value: 150.00, price: 145.00, name: "PSN Card R$ 150" }, // Desconto
-                { value: 200.00, price: 195.00, name: "PSN Card R$ 200" }, // Desconto
-                { value: 250.00, price: 240.00, name: "PSN Card R$ 250" }, // Desconto
-                { value: 300.00, price: 290.00, name: "PSN Card R$ 300" }  // Desconto
-            ];
-
-            const productsContainer = document.getElementById('products-container');
-            const addressModal = document.getElementById('address-modal');
-            const pixModal = document.getElementById('pix-modal');
-            const addressForm = document.getElementById('address-form');
-            const closeModalBtns = document.querySelectorAll('.close-btn');
-            const copyBtn = document.querySelector('.copy-btn');
-            const pendingMessage = document.querySelector('.pending-message'); 
-            const closePixBtn = document.getElementById('close-pix-btn');
-            const countdownDisplay = document.getElementById('countdown');
-            const cepInput = document.getElementById('cep');
-            const displayPrice = document.getElementById('display-price');
-            const pixValueDisplay = document.getElementById('pix-value-display');
-            const productNameDisplay = document.getElementById('product-name-display');
-            const productSelect = document.getElementById('product-select');
+    <!-- MODAL 2: PIX -->
+    <div id="modal-pix" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <div class="modal-content bg-[#111] border border-neon-green w-full max-w-md rounded-2xl relative shadow-neon overflow-hidden text-center">
+            <!-- Faixa de Urgência -->
+            <div class="bg-red-600/20 border-b border-red-500/30 p-2">
+                <p class="text-red-500 text-xs font-bold uppercase tracking-wider animate-pulse">Pagamento Pendente • Liberação Imediata</p>
+            </div>
             
-            let currentProduct = {};
-            let countdownInterval;
+            <div class="p-8">
+                <div class="mb-6">
+                    <h3 class="text-white font-bold text-2xl mb-2 font-display uppercase">Copie e Pague</h3>
+                    <p class="text-gray-400 text-sm">Copie a chave PIX abaixo para finalizar sua compra.</p>
+                </div>
 
-            // Função para formatar o preço
-            const formatPrice = (price) => {
-                return `R$ ${parseFloat(price).toFixed(2).replace('.', ',')}`;
-            };
+                <!-- Timer -->
+                <div class="mb-6">
+                    <p class="text-gray-500 text-xs uppercase mb-1">Seu código expira em:</p>
+                    <div class="text-4xl font-mono font-bold text-neon-green tracking-widest" id="countdown">10:00</div>
+                </div>
 
-            // 1. Geração Dinâmica dos Cards
-            productData.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <img src="https://cdn.awsli.com.br/2500x2500/2430/2430819/produto/234443245/psn-530-6hzaxry7ix.jpg" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <p class="price">${formatPrice(product.price)}</p>
-                    <button class="btn-buy" data-value="${product.value}" data-price="${product.price}" data-name="${product.name}">
-                        COMPRAR AGORA <i class="fas fa-gamepad"></i>
+                <!-- Valor a Pagar -->
+                <div class="mb-8 bg-green-900/20 py-3 rounded-lg border border-green-900/40">
+                    <p class="text-gray-400 text-xs uppercase mb-1 font-bold">Valor Total</p>
+                    <p class="text-3xl font-display font-bold text-white">R$ 197,00</p>
+                </div>
+
+                <!-- Area de Copiar -->
+                <div class="bg-black border border-gray-700 rounded-lg p-3 mb-4 flex items-center justify-between group hover:border-neon-green transition">
+                    <div class="text-left overflow-hidden">
+                        <p class="text-xs text-gray-500 uppercase font-bold">Chave PIX (CPF)</p>
+                        <p class="text-white font-mono text-sm truncate">081.904.013-43</p>
+                    </div>
+                    <button onclick="copyPix()" class="bg-gray-800 hover:bg-neon-green hover:text-black text-white p-2 rounded transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </button>
-                `;
-                productsContainer.appendChild(card);
-            });
+                </div>
 
-            // 2. Ação de Compra (Abre o Checkout)
-            productsContainer.addEventListener('click', function(event) {
-                if (event.target.classList.contains('btn-buy')) {
-                    const btn = event.target;
-                    
-                    currentProduct = {
-                        value: parseFloat(btn.dataset.value),
-                        price: parseFloat(btn.dataset.price),
-                        name: btn.dataset.name
-                    };
-
-                    // Atualiza o display do modal de checkout
-                    displayPrice.textContent = formatPrice(currentProduct.price);
-                    productNameDisplay.textContent = currentProduct.name;
-                    
-                    // Atualiza o valor do select (necessário para o JS do checkout)
-                    productSelect.innerHTML = `<option value="${currentProduct.price}" selected>${currentProduct.name}</option>`;
-                    
-                    addressModal.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                }
-            });
-
-
-            // 3. Fechar Modais (Geral)
-            const closeModals = () => {
-                addressModal.style.display = 'none';
-                pixModal.style.display = 'none';
-                document.body.style.overflow = 'auto'; 
-                if (countdownInterval) {
-                    clearInterval(countdownInterval);
-                }
-            };
-
-            closeModalBtns.forEach(btn => btn.addEventListener('click', closeModals));
-            closePixBtn.addEventListener('click', closeModals);
-
-            window.addEventListener('click', function(event) {
-                if (event.target === addressModal || event.target === pixModal) {
-                    closeModals();
-                }
-            });
-
-
-            // 4. Submissão do Formulário de Endereço -> Abre PIX
-            addressForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                // Atualiza o display do PIX com o preço correto
-                pixValueDisplay.textContent = formatPrice(currentProduct.price);
-
-                addressModal.style.display = 'none';
-                pixModal.style.display = 'block';
-                pendingMessage.style.display = 'none'; 
-                document.body.style.overflow = 'hidden';
+                <button onclick="copyPix()" class="w-full bg-neon-green hover:bg-white text-black font-bold py-3 rounded-lg uppercase tracking-wide transition duration-300 shadow-neon">
+                    Copiar Chave PIX
+                </button>
                 
-                startCountdown(10 * 60); // 10 minutos
-            });
+                <p id="copy-feedback" class="text-neon-green text-sm font-bold mt-3 opacity-0 transition">Chave Copiada com Sucesso!</p>
+
+                <div class="mt-6 border-t border-gray-800 pt-4">
+                     <p class="text-xs text-gray-500 leading-relaxed">Após o pagamento, o acesso será enviado automaticamente para o e-mail cadastrado em até 2 minutos.</p>
+                </div>
+            </div>
+             <!-- Hidden textarea for copying -->
+             <textarea id="pix-key-hidden" class="absolute opacity-0 -z-10">081.904.013-43</textarea>
+        </div>
+    </div>
+
+    <!-- Scripts de Lógica -->
+    <script>
+        // Elementos
+        const modalCheckout = document.getElementById('modal-checkout');
+        const modalPix = document.getElementById('modal-pix');
+        const copyFeedback = document.getElementById('copy-feedback');
+        const phoneInput = document.getElementById('phone');
+        let timerInterval;
+
+        // Máscara de Telefone
+        phoneInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
             
-            // 5. Contagem Regressiva para PIX
-            function startCountdown(duration) {
-                let timer = duration;
-                let minutes, seconds;
-
-                if (countdownInterval) {
-                    clearInterval(countdownInterval);
-                }
-
-                countdownInterval = setInterval(function () {
-                    minutes = parseInt(timer / 60, 10);
-                    seconds = parseInt(timer % 60, 10);
-
-                    minutes = minutes < 10 ? "0" + minutes : minutes;
-                    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                    countdownDisplay.textContent = minutes + ":" + seconds;
-
-                    if (--timer < 0) {
-                        clearInterval(countdownInterval);
-                        countdownDisplay.textContent = "EXPIRADO!";
-                        alert("O prazo para pagamento PIX expirou. Refaça o pedido.");
-                        closeModals();
-                    }
-                }, 1000);
+            if (value.length > 2) {
+                value = `(${value.substring(0,2)}) ${value.substring(2)}`;
             }
-
-            // 6. Lógica de Cópia da Chave PIX
-            copyBtn.addEventListener('click', function() {
-                const pixKey = copyBtn.getAttribute('data-copy');
-                
-                navigator.clipboard.writeText(pixKey).then(function() {
-                    const originalText = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
-                    
-                    // Mostra a mensagem de pagamento PENDENTE após a cópia
-                    pendingMessage.style.display = 'block';
-
-                    setTimeout(function() {
-                        copyBtn.innerHTML = originalText;
-                    }, 2000);
-                }).catch(function(err) {
-                    console.error('Erro ao copiar: ', err);
-                    alert('Não foi possível copiar. Copie a chave PIX manualmente: 081.904.013-43');
-                });
-            });
-
-            // 7. Simulação de Preenchimento por CEP (Apenas para evitar erro de campo faltante)
-            cepInput.addEventListener('input', function() {
-                let cep = this.value.replace(/\D/g, ''); 
-                this.value = cep;
-            });
+            if (value.length > 10) {
+                value = `${value.substring(0,10)}-${value.substring(10)}`;
+            } else if (value.length > 6) {
+                value = `${value.substring(0,9)}-${value.substring(9)}`;
+            }
             
-            // Corrige o preenchimento inicial dos selects do checkout (que foram ocultados)
-            productSelect.innerHTML = `<option value="50.00" selected>PSN Card R$ 50</option>`;
-            currentProduct = { price: 50.00, name: "PSN Card R$ 50" };
-
+            e.target.value = value;
         });
+
+        // Abrir Checkout
+        function openCheckout() {
+            modalCheckout.classList.add('active');
+        }
+
+        // Fechar Todos os Modais
+        function closeModals() {
+            modalCheckout.classList.remove('active');
+            modalPix.classList.remove('active');
+            clearInterval(timerInterval);
+        }
+
+        // Processar Pagamento (Fake)
+        function handleCheckout(e) {
+            e.preventDefault();
+            // Aqui você poderia enviar os dados para um backend
+            
+            // Fecha checkout e abre Pix
+            modalCheckout.classList.remove('active');
+            modalPix.classList.add('active');
+            
+            // Inicia Timer
+            startTimer(600); // 10 minutos em segundos
+        }
+
+        // Copiar Pix
+        function copyPix() {
+            const pixKey = document.getElementById('pix-key-hidden');
+            pixKey.select();
+            pixKey.setSelectionRange(0, 99999); // Mobile fallback
+
+            try {
+                document.execCommand('copy');
+                // Feedback visual
+                copyFeedback.style.opacity = '1';
+                setTimeout(() => {
+                    copyFeedback.style.opacity = '0';
+                }, 2000);
+            } catch (err) {
+                alert('Erro ao copiar. Por favor selecione e copie manualmente: 081.904.013-43');
+            }
+        }
+
+        // Timer Regressivo
+        function startTimer(duration) {
+            let timer = duration, minutes, seconds;
+            const display = document.getElementById('countdown');
+            
+            clearInterval(timerInterval); // Limpa anterior se houver
+            
+            timerInterval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = 0;
+                    display.textContent = "EXPIRADO";
+                    display.classList.add("text-red-500");
+                    clearInterval(timerInterval);
+                }
+            }, 1000);
+        }
+
+        // Fechar ao clicar fora (Opcional, mas boa UX)
+        window.onclick = function(event) {
+            if (event.target == modalCheckout) {
+                closeModals();
+            }
+            // Não fechamos o do PIX ao clicar fora para forçar a atenção, 
+            // mas se quiser pode adicionar: || event.target == modalPix
+        }
     </script>
 </body>
 </html>
